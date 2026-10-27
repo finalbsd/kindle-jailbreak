@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-27（维护手册扩写）
+
+- `docs/maintenance.md` 扩写：两台设备的硬件和系统对照、分区和挂载（哪些重启会清空）、数据盘和 KOReader 目录逐项说明、`settings/` 里每个文件是什么、系统里值得知道的路径、核心命令（只看不改 / 会改东西 / 不要碰三类）。原因：作者想知道目录结构、命令用途和关键文件。
+- 发现 Paperwhite 一代的系统升级程序 `otaupd` 还在运行（Oasis 上没有），防升级一节据此改写。
+- Paperwhite 一代远程重启 KOReader 的命令补上（取自 KUAL 的 `menu.json`），未实测。
+- 已验证：目录、挂载、服务列表、`lipc` 属性都是从两台设备上读出来的；`ifconfig`、`lipc-get-prop`、`sqlite3`、`showlog` 两台都跑过。BusyBox 的 `sort` 不支持 `-h`，已改成 `du -sm | sort -n`。
+- 未验证：`update.bin.tmp.partial` 能否挡住 Paperwhite 一代的升级；表里“会改东西”的命令大多没在这两台上执行过。
+
 ## 2026-10-27（体检脚本修正）
 
 - `tools/kindle-health.sh`：Paperwhite 一代的 BusyBox grep 不支持 `-E`，触摸和日志两项查不出来，改成多个 `-e`；日志里的网址不再显示（可能带登录 uid）。
