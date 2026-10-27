@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-27（维护手册）
+
+- 新增 `docs/maintenance.md` 日常维护手册：认识这台 Linux、怎么连、备份什么、防自动升级、更新、清理空间、远程截屏、排错、千万别做的事。原因：越狱后要长期用，需要一份日常维护的参考。
+- 新增 `tools/kindle-health.sh`：通过 SSH 只读体检（固件、电量、空间、内存、进程、自动升级屏蔽、触摸中断、OOM、KOReader 错误）。
+- 已验证：体检脚本在 Oasis 一代（5.16.2.1.1）上跑通；手册里的 `df`、`free`、`lipc-get-prop`、`tar`、`/proc/interrupts` 在 Oasis 上用过。
+- 未验证：体检脚本在 Paperwhite 一代上没跑过（触摸芯片中断名可能对不上）；`update.bin.tmp.partial` 防升级在这两台上没试过（引自 KindleModding）；KOReader 跨大版本更新。
+- 用户需要做的升级动作：无。
+
 ## 2026-10-27（晚）
 
 - Oasis 一代：幽灵触点的结论改成“擦屏解决，最可能是屏幕边缘油污或水汽，和越狱无关”。新增测法：读 `/proc/interrupts` 里触摸芯片的中断计数，KOReader 开着也能测。撤回“删四个角的手势”的建议。

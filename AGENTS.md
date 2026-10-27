@@ -15,6 +15,7 @@
 - 在电脑上下载文件、核对 SHA256、解压、拷进已挂载的 Kindle 磁盘。
 - 核对 Kindle 根目录里的文件，读 `system/version.txt`，读 KOReader 日志。
 - 用户开了 SSH 后，远程读日志、看内存、截屏。
+- 越狱完成后的日常问题（卡死、触摸失灵、空间、备份、防升级），先读 `docs/maintenance.md`，先跑 `tools/kindle-health.sh <IP>`。
 - 写过程记录，整理照片。
 
 ## 必须用户自己做的

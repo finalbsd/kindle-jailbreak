@@ -47,6 +47,7 @@ AI 助手做不了、要你自己动手的：在 Kindle 屏幕上点按钮、长
 ## 越狱之后
 
 - [KOReader 装好之后：微信读书、首页、SSH](docs/koreader-and-plugins.md)
+- [日常维护手册](docs/maintenance.md)：备份、防升级、清空间、远程截屏、卡死和触摸失灵怎么办。配一个只读的体检脚本 `tools/kindle-health.sh`
 
 ## 给 AI 助手
 
@@ -88,7 +89,8 @@ AI 助手做不了、要你自己动手的：在 Kindle 屏幕上点按钮、长
 ```
 devices/oasis1/        Oasis 一代：WinterBreak2 + KPM 装 KOReader
 devices/paperwhite1/   Paperwhite 一代：老办法，含下载脚本、哈希、照片
-docs/                  越狱之后的 KOReader 插件
+docs/                  越狱之后的 KOReader 插件、日常维护手册
+tools/                 体检脚本（通过 SSH 只读查看状态）
 AGENTS.md              给 AI 助手的操作规则
 CHANGELOG.md           更新记录
 ```
