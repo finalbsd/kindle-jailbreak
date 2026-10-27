@@ -4,6 +4,35 @@
 
 越狱之后装 KOReader，还可以装微信读书、带封面的首页，并让电脑远程看屏幕。
 
+## 越狱前后
+
+| 越狱前 | 越狱后：首页 |
+| --- | --- |
+| ![原系统书架](devices/paperwhite1/images/05-library.jpg) | ![SimpleUI 首页](images/home-simpleui.png) |
+| Kindle 原系统书架（Paperwhite 一代，手机拍摄） | KOReader 加 SimpleUI，底栏有微信读书入口 |
+
+| 读书：划线和脚注 | 点划线看别人的想法 | 锁屏 |
+| --- | --- | --- |
+| ![正文](images/reading-highlight.png) | ![想法](images/reading-note.png) | ![锁屏](images/lockscreen.png) |
+| 方正博雅方刊宋，脚注排在页底，灰底是划线 | 微信读书里别人写的想法，在 Kindle 上直接看 | 自己做的古画锁屏，每次随机一张 |
+
+后四张是 Oasis 一代的屏幕截图，Paperwhite 一代装好后效果相同，屏幕小一些。字体是商业字体，不在仓库里，要自己准备。
+
+## 交给 AI 助手来做
+
+把下面这段话发给你的 Claude Code、Codex 或其他能运行命令的 AI 助手：
+
+```
+帮我按这个仓库给 Kindle 越狱：https://github.com/finalbsd/kindle-jailbreak
+先把仓库下载到本地，读 AGENTS.md，再问我型号和固件版本。
+```
+
+AI 助手能做的：下载固件和越狱包、核对哈希、拷进 Kindle、装插件、开了 SSH 后远程看日志和截屏。
+
+AI 助手做不了、要你自己动手的：在 Kindle 屏幕上点按钮、长按电源键、插拔数据线、扫码登录微信读书。每到这一步，它会告诉你点哪里、会看到什么。
+
+下载地址都是公开的，不需要账号。Paperwhite 一代有现成的下载脚本 `devices/paperwhite1/fetch-files.sh`，会自动核对哈希。文件放在别人的服务器上，哪天地址失效，脚本会报错停下，不会装错文件。
+
 ## 先找你的型号
 
 | 设备 | 固件 | 方法 | 要不要亚马逊账号 | 指南 |
@@ -21,7 +50,7 @@
 
 ## 给 AI 助手
 
-如果你是被用户叫来帮忙越狱的 AI 助手，先读 [AGENTS.md](AGENTS.md)。里面写了哪些步骤你能做、哪些必须用户自己做、哪些要先问。
+如果你是被用户叫来帮忙越狱的 AI 助手，先读 [AGENTS.md](AGENTS.md)。里面写了哪些步骤你能做、哪些必须用户自己做、哪些要先问。Claude Code 会通过 `CLAUDE.md` 自动读到它。
 
 ## 重要提醒
 
