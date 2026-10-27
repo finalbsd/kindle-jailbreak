@@ -129,11 +129,31 @@ KOReader 自己的 `koreader.sh` 支持 `--framework_stop`：启动时停掉 Kin
 
 | 现象 | 原因 | 怎么办 |
 | --- | --- | --- |
-| 点菜单没反应，乱截屏 | 屏幕上有“幽灵触点”（静止的假手指），不是内存或插件慢 | 我们写了一个补丁 `2-crash-guards.lua`，把静止超 5 秒的触点记下来。**没放进仓库**，只在 Oasis 上遇到过，其他设备不一定有 |
+| 点菜单没反应，乱截屏，前光自己开关，原系统的顶部快捷栏自己弹下来 | 日志里能看到屏幕两个上角有静止的假触点（“幽灵触点”）。来源没查清：作者说越狱前没出现过；我们查过，没有别的程序往触摸设备里写事件 | 见下面“幽灵触点怎么处理” |
+| KOReader 点顶部中间不出菜单，退不出去 | 我们写的触摸过滤补丁把上角区域整块屏蔽了，顶部菜单也被挡住 | 删掉 `koreader/patches/` 里的全部补丁，重启 KOReader |
+| 电量一会儿 72% 一会儿 20% | 机身电池很小，主要靠充电保护套供电。系统里两处电量读数不一致 | 平时装着保护套用。外观正常、没鼓包就先不用管 |
 | 想远程点屏幕做测试 | 往 `/dev/input/event3` 写多点触控事件可以模拟，但和真实手指撞在一起时手势状态会卡住 | 作者在读书时不要远程点屏幕 |
 | KOReader 屏幕顶部偶尔叠着系统的时钟和电量 | 原系统的状态栏还在画 | 用省内存启动（停掉原系统）即可 |
 | 在 Kindle 上截图，Mac 里看不到 | USB 模式下新截的图不会出现在 Mac 上 | 断开再截，下次挂载时拷出来 |
 | Oasis 没有主页键 | 机身没有 | 点屏幕顶部，再点工具栏里的小房子 |
+
+### 幽灵触点怎么处理
+
+我们试过写 KOReader 补丁过滤假触点（`2-crash-guards.lua`、`2-edge-ghost-filter.lua`），结果挡住了顶部菜单，还有一次崩溃走的就是补丁里的代码。最后全部删除。现在的做法：
+
+1. 不往 `koreader/patches/` 里放任何改触摸处理的补丁。
+2. 删掉落在上角的点按手势。在 `koreader/settings/gestures.lua` 里删 `tap_top_left_corner`、`tap_top_right_corner`、`hold_top_right_corner`，再删 `tap_left_bottom_corner`（它默认是开关前光，假触点会让前光一会开一会关）。改之前先退出 KOReader 并备份。
+3. 卡住不动时，远程重启 KOReader，不用重启 Kindle：
+
+   ```
+   ssh -p 2222 root@<IP> 'killall -TERM reader.lua'
+   ```
+
+   等原系统起来（`pidof cvm` 有输出），再运行 `/mnt/us/documents/KOReader-lowmem.sh`。注意 SSH 在 KOReader 退出时会断，要把这几步写进一个脚本，用 `nohup` 在后台跑。
+
+还没解决：假触点从哪来；不带补丁时 KOReader 也崩过一次（`iconbutton` 里 `dimen` 为空），原因没查清。
+
+测触摸要先停掉 KOReader。KOReader 运行时独占触摸设备，在 SSH 里读 `/dev/input/event3` 一条事件都读不到，那样测出来的“没有假触点”不作数。
 
 ## 官方参考
 

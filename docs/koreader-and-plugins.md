@@ -85,8 +85,49 @@ ssh -p 2222 root@<IP> 'free -m'
 
 看 `-/+ buffers/cache` 那一行，才是程序实际占用。
 
-## 4. 没放进仓库的东西
+## 4. 看别人的划线和想法（微信读书插件）
 
-- **wereadhl.koplugin**：作者自己写的“把自己的微信读书划线导进 KOReader 原书”的插件。目前只在 Oasis 上试过，没整理好，未放入仓库。
-- **2-crash-guards.lua**：Oasis 的“幽灵触点”崩溃保护补丁，只对那台设备有意义。
+微信读书里别人的热门划线和想法，插件能取到，但**不会自动出现在书里**。插件要先把微信读书的章节和 KOReader 打开的这本书对上位置，这一步要手动做，每本书做一次。
+
+1. 用 KOReader 打开这本书，连上 Wi-Fi。
+2. 点屏幕顶部打开菜单，找到“微信读书 → 划线和想法管理”。
+3. 第一次点“匹配微信读书书目”，选对应的书。
+4. 再点“选择章节匹配”，勾两三章。匹配完，这几章里就能看到别人的划线。
+5. 以后读到新章节，再回来点“继续匹配”或“选择章节匹配”。进度按章保存，中断了不用从头来。
+
+内存小的设备一次别选太多章。Paperwhite 一代（256 MB）上整本一起匹配，KOReader 被系统因内存不足直接杀掉，表现是“同步着突然重启”。改成一次两三章就正常了。已经匹配好的章节不会丢。
+
+我们在 Paperwhite 一代上实测：一章匹配出 184 条，5 条没对上位置。
+
+匹配结果存在 `koreader/weread/external-annotations/` 里，一本书一个 SQLite 文件。
+
+插件设置里另有“自动预取下一章”和“预取划线”两个开关，默认都关着，我们没打开过，效果没测。
+
+## 5. 换锁屏图（KOReader 休眠屏保）
+
+用 `no framework` 启动时，锁屏由 KOReader 画，不是 Kindle 原系统。换成自己的图：
+
+1. 准备几张 PNG，尺寸和屏幕一样，彩色也行，屏幕会显示成灰度。Paperwhite 一代是 758×1024，Oasis 一代是 1072×1448。尺寸不对会被缩放或留白。
+2. 拷到 Kindle 磁盘的 `screensaver/` 文件夹（即 `/mnt/us/screensaver/`）。文件名用英文。
+3. 退出 KOReader，再改 `koreader/settings.reader.lua`，加上或改成这三项：
+
+   ```
+   ["screensaver_type"] = "random_image",
+   ["screensaver_dir"] = "/mnt/us/screensaver",
+   ["screensaver_show_message"] = false,
+   ```
+
+   KOReader 运行时改这个文件没用，退出时它会把内存里的设置写回去。改之前先备份一份。也可以在 KOReader 菜单的屏保设置里选“随机图片”和文件夹，效果一样。
+4. 重新启动 KOReader，按电源键休眠，每次随机显示一张。
+
+## 6. 加自己的字体
+
+把 `.ttf` 或 `.otf` 拷到 Kindle 磁盘的 `fonts/` 文件夹（即 `/mnt/us/fonts/`），重启 KOReader，在排版菜单的字体列表里就能选。KOReader 会扫这个文件夹。
+
+商业字体（比如方正的字库）只放在自己的设备上，不要放进仓库或发给别人。
+
+## 7. 没放进仓库的东西
+
+- **wereadhl.koplugin**：作者自己写的“把自己的微信读书划线导进 KOReader 原书”的插件。在 Oasis 和 Paperwhite 一代上都装过，没整理好，未放入仓库。
+- **KOReader 补丁（`koreader/patches/`）**：我们在 Oasis 上写过崩溃保护和“幽灵触点”过滤补丁，后来发现它们挡住了顶部菜单，已全部删除。不建议往触摸处理里加补丁，详见 [Oasis 指南](../devices/oasis1/README.md)。
 - 任何 API Key、cookies、`weread.lua`、你的书单和划线数据。

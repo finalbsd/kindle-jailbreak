@@ -137,6 +137,7 @@ KOReader 选 `koreader-kindle`，不要选 `legacy`、`pw2`、`hf`。KOReader �
 ### 8. 之后
 
 - 装微信读书、首页等插件，见 [../../docs/koreader-and-plugins.md](../../docs/koreader-and-plugins.md)。
+- 看别人的划线、换锁屏图、加字体，也在那份文档里。看别人的划线时一次只匹配两三章，这台内存小，整本一起匹配会被系统杀掉。
 - KOReader 里连 Wi-Fi，不需要亚马逊账号。联网时尽量只在 `no framework` 模式下，因为那时 Kindle 原系统没有运行。
 
 ## 排错：我们踩过的坑
@@ -152,6 +153,7 @@ KOReader 选 `koreader-kindle`，不要选 `legacy`、`pw2`、`hf`。KOReader �
 | 点 KUAL，什么都没出现 | 用了 PEKI 版 KUAL，不支持老固件 | 换成 `KUAL-KDK-2.0.azw2`，放进 `documents/` |
 | 点 KUAL（KDK 2.0），弹“无法启动选定的应用程序，请重试” | 在 5.4.4.2 上出现，升回 5.6.1.1 并点过 Run Hotfix 后正常。确切原因没查清 | 按步骤 6 升回 5.6.1.1 |
 | 找不到 KUAL | 书架上它的名字是 Kindle Unified Application Launcher | 找这个全名 |
+| 微信读书插件匹配划线时，KOReader 突然退出、像重启了一样 | 整本书一起匹配，内存不够，被系统杀掉（内核日志里有 OOM） | 用“选择章节匹配”，一次两三章。已匹配的章节会保存 |
 | `kindle-5.4-jailbreak.zip` 解压失败，文件只有 130 字节 | 下到的是 Git LFS 占位文件 | 用 `media.githubusercontent.com` 的地址，脚本里已处理，并核对哈希 |
 
 ## 记录里没有验证的地方
