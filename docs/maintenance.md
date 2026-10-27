@@ -10,7 +10,7 @@
 | --- | --- |
 | `/mnt/us` | 数据盘。USB 连电脑时看到的就是它：书、字体、KOReader 都在这里 |
 | `/` | 系统盘，很小，Oasis 上已用 95%。**不要往里写东西** |
-| BusyBox | 精简版的命令集。`sed`、`grep` 不支持 `-E`，`ps` 不显示完整命令行，没有 `scp`、`rsync` |
+| BusyBox | 精简版的命令集。老固件（Paperwhite 一代）上 `sed`、`grep` 不支持 `-E`，要用多个 `-e`；`ps` 不显示完整命令行；没有 `scp`、`rsync` |
 | `cvm` | Kindle 原系统的主程序（Java），约占 100 MB 内存 |
 | `lab126_gui` | 原系统的服务名。`status lab126_gui` 看状态 |
 | `powerd` | 电源管理。`lipc-get-prop com.lab126.powerd battLevel` 读电量 |
@@ -41,7 +41,7 @@ sh tools/kindle-health.sh <IP>
 
 怎么看：
 
-- **内存**：看 `-/+ buffers/cache` 那一行的 free。Oasis 一代省内存启动后约剩 350 MB；Paperwhite 一代约剩 160 MB。
+- **内存**：看 `-/+ buffers/cache` 那一行的 free。Oasis 一代省内存启动后约剩 350 MB；Paperwhite 一代刚启动约剩 160 MB，读了一会书后约剩 110 MB。
 - **触摸中断**：手不碰屏幕时应该是 0。不是 0 见下面“点了没反应”。
 - **电量**：Oasis 一代的机身电池很小，靠充电保护套供电，读数会跳，见排错。
 
@@ -160,7 +160,7 @@ Image.frombytes("L", (1088, 1448), d).crop((0, 0, 1072, 1448)).save("screen.png"
 2. 跑体检，看触摸中断数。手不碰屏幕，它应该是 0；一直在涨，就是有假触点。拔掉充电线再测一次，排除充电器干扰。
 3. 不要写 KOReader 补丁去过滤触摸，我们试过，挡住了顶部菜单。
 
-触摸芯片：Oasis 一代是 Cypress `cyttsp4`（中断名 `main_ttsp_core`）。Paperwhite 一代用的是红外触摸（zForce），中断名我们没核对过，体检脚本找不到时会说“没找到”。
+触摸芯片：两台都是 Cypress 的电容屏。Oasis 一代的中断名是 `main_ttsp_core.cyttsp4_i2c_adapter`，Paperwhite 一代是 `cyttsp`。体检脚本会自己找。
 
 ### 退出 KOReader 后原系统点不动
 

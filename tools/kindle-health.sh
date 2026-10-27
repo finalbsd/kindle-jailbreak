@@ -29,7 +29,8 @@ if [ -d /mnt/us/update.bin.tmp.partial ]; then echo "已用 update.bin.tmp.parti
 ls /mnt/us/*.bin /mnt/us/update*.bin 2>/dev/null | sed 's/^/根目录有待装的固件：/' || true
 
 echo "== 触摸芯片 5 秒内的中断数（手别碰屏幕，应为 0）"
-line=$(grep -iE 'ttsp|zforce|touch' /proc/interrupts | head -1)
+# 老固件的 BusyBox grep 不支持 -E，用多个 -e
+line=$(grep -i -e ttsp -e zforce -e touch /proc/interrupts | head -1)
 if [ -n "$line" ]; then
   name=$(echo "$line" | awk '{print $NF}')
   a=$(echo "$line" | awk '{print $2}')
@@ -44,5 +45,6 @@ echo "== 最近的内存不足（OOM）记录"
 dmesg 2>/dev/null | grep -i "out of memory" | tail -3 || true
 
 echo "== KOReader 日志里最近的错误"
-grep -E "ERROR|stack traceback" /mnt/us/koreader/crash.log 2>/dev/null | tail -5 || true
+# 去掉网址部分：里面可能带登录用的 uid、书的 id
+grep -e "ERROR" -e "stack traceback" /mnt/us/koreader/crash.log 2>/dev/null | sed 's/url=.*/url=(已省略)/' | tail -5 || true
 REMOTE
