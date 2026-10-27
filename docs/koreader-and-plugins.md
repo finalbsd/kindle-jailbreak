@@ -129,5 +129,5 @@ ssh -p 2222 root@<IP> 'free -m'
 ## 7. 没放进仓库的东西
 
 - **wereadhl.koplugin**：作者自己写的“把自己的微信读书划线导进 KOReader 原书”的插件。在 Oasis 和 Paperwhite 一代上都装过，没整理好，未放入仓库。
-- **KOReader 补丁（`koreader/patches/`）**：我们在 Oasis 上写过崩溃保护和“幽灵触点”过滤补丁，后来发现它们挡住了顶部菜单，已全部删除。不建议往触摸处理里加补丁，详见 [Oasis 指南](../devices/oasis1/README.md)。
+- **KOReader 补丁（`koreader/patches/`）**：我们在 Oasis 上写过崩溃保护和“幽灵触点”过滤补丁，后来发现它们挡住了顶部菜单，已全部删除。假触点最后是擦屏解决的。不建议往触摸处理里加补丁，详见 [Oasis 指南](../devices/oasis1/README.md)。
 - 任何 API Key、cookies、`weread.lua`、你的书单和划线数据。
